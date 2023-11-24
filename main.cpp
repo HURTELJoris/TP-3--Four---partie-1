@@ -1,29 +1,26 @@
-#include <Windows.h>
-#include "DASK.h"
-#include <conio.h>
-#include <iostream>
-#include "FOUR.h"
+//*********************************************************************************************
+//* Programme : main.cpp
+//* Date : 21/11/2023
+//* Dernière mise à jour : 21/11/2023
+//*
+//* Programmeurs : Lopes-Pereira Damien :) / Hurtel Joris / Sénépart Mathias :)
+//* Classe : BTSSN2
+//*--------------------------------------------------------------------------------------------------------
+//* BUT : Point d'entrée de l'application. Crée et affiche la fenêtre principale.
+//* Programmes associés : QtWidgetsApplication1
+//*********************************************************************************************
 
-int main(int argc, char** argv)
+#include "QtWidgetsApplication1.h"
+#include <QtWidgets/QApplication>
+
+int main(int argc, char* argv[])
 {
-	I16 cardId = Register_Card(PCI_9111DG, 0);
-	if (cardId >= 0)
-	{
-		std::cout << "Ouverture carte OK" << std::endl;
+ 
+    QApplication a(argc, argv);
 
-		AI_9111_Config(cardId, TRIG_INT_PACER, P9111_TRGMOD_SOFT, 0);
+    QtWidgetsApplication1 w;
 
-		double tension;
+    w.show();
 
-		if (AI_VReadChannel(cardId, 0, AD_B_10_V, &tension) < 0)
-			std::cout << "Erreur lecture" << std::endl;
-		else
-		{
-			std::cout << "Tension : " << tension << std::endl;
-		}
-
-		Release_Card(cardId);
-	}
-
-	return 0;
+    return a.exec();
 }
